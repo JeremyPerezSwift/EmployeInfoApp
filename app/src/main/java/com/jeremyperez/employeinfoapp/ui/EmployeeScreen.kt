@@ -66,7 +66,7 @@ fun EmployeeScreen(
         ) {
             when (val state = uiState) {
                 is EmployeeUIState.Loading -> {
-
+                    LoadingContent()
                 }
                 is EmployeeUIState.Success -> {
                     if (state.employees.isEmpty()) {
