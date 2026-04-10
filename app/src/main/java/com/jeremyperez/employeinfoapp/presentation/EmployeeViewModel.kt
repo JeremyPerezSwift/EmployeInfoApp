@@ -42,5 +42,20 @@ class EmployeeViewModel(
         }
     }
 
+    fun inertSampleEmployees() {
+        viewModelScope.launch {
+            try {
+                val currentState = _uiState.value
+                if (currentState is EmployeeUIState.Success) {
+                    _uiState.value = currentState.copy(isLoading = true)
+                }
 
+                insertSampleEmployeesUseCase()
+            } catch (e: Exception) {
+                _uiState.value = EmployeeUIState.Error(
+                    message = "Failed to insert employees: ${e.message}"
+                )
+            }
+        }
+    }
 }
