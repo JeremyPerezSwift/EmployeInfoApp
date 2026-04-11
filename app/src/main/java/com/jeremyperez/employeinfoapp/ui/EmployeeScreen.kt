@@ -24,7 +24,7 @@ import com.jeremyperez.employeinfoapp.presentation.EmployeeViewModel
 @Composable
 fun EmployeeScreen(
     viewModel: EmployeeViewModel,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
 

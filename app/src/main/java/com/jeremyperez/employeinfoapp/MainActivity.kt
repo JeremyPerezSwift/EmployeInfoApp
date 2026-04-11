@@ -11,37 +11,34 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jeremyperez.employeinfoapp.di.EmployeeContainer
+import com.jeremyperez.employeinfoapp.presentation.EmployeeViewModel
+import com.jeremyperez.employeinfoapp.presentation.EmployeeViewModelFactory
+import com.jeremyperez.employeinfoapp.ui.EmployeeScreen
 import com.jeremyperez.employeinfoapp.ui.theme.EmployeInfoAppTheme
 
 class MainActivity : ComponentActivity() {
+    private lateinit var employeeContainer: EmployeeContainer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        employeeContainer = EmployeeContainer(applicationContext)
+
         enableEdgeToEdge()
         setContent {
             EmployeInfoAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                val viewModel: EmployeeViewModel = viewModel(
+                    factory = EmployeeViewModelFactory(
+                        getAllEmployeesUseCase = employeeContainer.getAllEmployeesUseCase,
+                        insertEmployeeUseCase = employeeContainer.insertEmployeeUseCase,
+                        insertSampleEmployeesUseCase = employeeContainer.insertSampleEmployeesUseCase
                     )
-                }
+                )
+
+                EmployeeScreen(viewModel = viewModel)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EmployeInfoAppTheme {
-        Greeting("Android")
     }
 }
