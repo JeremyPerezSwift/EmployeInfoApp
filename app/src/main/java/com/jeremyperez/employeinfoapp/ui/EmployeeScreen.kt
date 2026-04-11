@@ -70,7 +70,7 @@ fun EmployeeScreen(
                 }
                 is EmployeeUIState.Success -> {
                     if (state.employees.isEmpty()) {
-
+                        EmptyContent()
                     } else {
 
                     }
