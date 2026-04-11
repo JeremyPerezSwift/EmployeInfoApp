@@ -72,7 +72,10 @@ fun EmployeeScreen(
                     if (state.employees.isEmpty()) {
                         EmptyContent()
                     } else {
-
+                        EmployeeListContent(
+                            employees = state.employees,
+                            isLoading = state.isLoading
+                        )
                     }
                 }
                 is EmployeeUIState.Error -> {
