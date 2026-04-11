@@ -79,7 +79,7 @@ fun EmployeeScreen(
                     }
                 }
                 is EmployeeUIState.Error -> {
-
+                    ErrorContent(message = state.message)
                 }
             }
         }
